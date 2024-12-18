@@ -1,0 +1,36 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
+const resolve = require("@rollup/plugin-node-resolve");
+const commonjs = require("@rollup/plugin-commonjs");
+const typescript = require("@rollup/plugin-typescript");
+const postcss = require("rollup-plugin-postcss");
+const packageJson = require("./package.json");
+
+const config = [
+  {
+    input: "src/index.ts",
+    output: [
+      {
+        file: packageJson.main,
+        format: "cjs",
+        sourcemap: true,
+      },
+      {
+        file: packageJson.module,
+        format: "esm",
+        sourcemap: true,
+      },
+    ],
+    plugins: [
+      resolve(),
+      commonjs(),
+      typescript({ tsconfig: "./tsconfig.json" }),
+      postcss({
+        extract: false,
+        minimize: true,
+      }),
+    ],
+    external: ["react", "react-dom", "tailwindcss"],
+  },
+];
+
+module.exports = config;
