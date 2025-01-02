@@ -1,8 +1,7 @@
 "use client";
 
 import React, { RefObject, useEffect, useRef, useState } from "react";
-import { Frame, NRCCarouselProps } from "./types";
-import { Breakpoint, DesktopMobile } from "@/types";
+import { Breakpoint, DesktopMobile, Frame, NRCCarouselProps } from "./types";
 import clsx from "clsx";
 import { NRCFrame } from "./NRCFrame";
 import { useHover } from "@/hooks/useHover";
@@ -114,7 +113,6 @@ const NRCCarousel = ({ frames, breakpoint, slideDuration, noAutoPlay, heights, l
     return (
         <div className="overflow-hidden w-full relative" ref={containerRef} onDragStart={(e) => e.preventDefault()}>
             <div
-                id="test-1"
                 className={clsx({ "transition-transform duration-500": !disableAnimation }, breakpointClass.mobile)}
                 style={{ transform: `translateX(-${index * 100}%)` }}
                 {...handlers}

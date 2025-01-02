@@ -1,68 +1,91 @@
 {
-  "name": "nrc-next-carousel",
-  "version": "1.0.0",
-  "description": "Next.js Carousel",
-  "scripts": {
-    "start": "storybook dev -p 6006",
-    "build": "rollup -c",
-    "clean-types": "rimraf dist/types",
-    "bundle": "rimraf dist && npm run build && npm run clean-types && npm pack && echo Run: npm i ./nrc-next-carousel-1.0.0.tgz"
-  },
-  "author": "Nicholas Lowe",
-  "license": "ISC",
-  "dependencies": {
-    "clsx": "^2.1.1",
-    "next": "15.1.1",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-swipeable": "^7.0.2"
-  },
-  "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "tailwindcss": "^3.0.0"
-  },
-  "devDependencies": {
-    "@chromatic-com/storybook": "^3.2.2",
-    "@eslint/eslintrc": "^3",
-    "@rollup/plugin-commonjs": "^28.0.2",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^16.0.0",
-    "@rollup/plugin-typescript": "^12.1.2",
-    "@storybook/addon-essentials": "^8.4.7",
-    "@storybook/addon-interactions": "^8.4.7",
-    "@storybook/blocks": "^8.4.7",
-    "@storybook/nextjs": "^8.4.7",
-    "@storybook/react": "^8.4.7",
-    "@storybook/test": "^8.4.7",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.1.1",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-storybook": "^0.11.1",
-    "postcss": "^8",
-    "prettier": "^3.4.2",
-    "rimraf": "^6.0.1",
-    "rollup": "^4.28.1",
-    "rollup-plugin-dts": "^6.1.1",
-    "rollup-plugin-postcss": "^4.0.2",
-    "storybook": "^8.4.7",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5"
-  },
-  "eslintConfig": {
-    "extends": [
-      "plugin:storybook/recommended"
+    "name": "nrc-next-carousel",
+    "version": "0.9.0",
+    "description": "Next.js Carousel w/ with swipeability and Tailwind breakpoint support",
+    "scripts": {
+        "build-types": "tsc",
+        "start": "storybook dev -p 6006",
+        "build": "rollup -c",
+        "clean-types": "rimraf dist/types",
+        "bundle": "rimraf dist && npm run build-types && npm run build && npm run clean-types && npm pack"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/nlowen233/nrc-next-carousel"
+    },
+    "homepage": "https://github.com/nlowen233/nrc-next-carousel",
+    "author": {
+        "name": "Nicholas Lowe",
+        "email": "nicholasrussellconsulting@gmail.com",
+        "url": "https://www.nicholasrussellconsulting.com/"
+    },
+    "license": "ISC",
+    "dependencies": {
+        "clsx": "^2.1.1",
+        "next": "15.1.1",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "react-swipeable": "^7.0.2"
+    },
+    "peerDependencies": {
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "tailwindcss": "^3.0.0"
+    },
+    "devDependencies": {
+        "@chromatic-com/storybook": "^3.2.2",
+        "@eslint/eslintrc": "^3",
+        "@rollup/plugin-commonjs": "^28.0.2",
+        "@rollup/plugin-json": "^6.1.0",
+        "@rollup/plugin-node-resolve": "^16.0.0",
+        "@rollup/plugin-typescript": "^12.1.2",
+        "@storybook/addon-essentials": "^8.4.7",
+        "@storybook/addon-interactions": "^8.4.7",
+        "@storybook/blocks": "^8.4.7",
+        "@storybook/nextjs": "^8.4.7",
+        "@storybook/react": "^8.4.7",
+        "@storybook/test": "^8.4.7",
+        "@types/node": "^20",
+        "@types/react": "^19",
+        "@types/react-dom": "^19",
+        "eslint": "^9",
+        "eslint-config-next": "15.1.1",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-storybook": "^0.11.1",
+        "postcss": "^8",
+        "prettier": "^3.4.2",
+        "rimraf": "^6.0.1",
+        "rollup": "^4.28.1",
+        "rollup-plugin-banner2": "^1.3.1",
+        "rollup-plugin-dts": "^6.1.1",
+        "rollup-plugin-postcss": "^4.0.2",
+        "rollup-plugin-preserve-directives": "^0.4.0",
+        "storybook": "^8.4.7",
+        "tailwindcss": "^3.4.1",
+        "typescript": "^5"
+    },
+    "eslintConfig": {
+        "extends": [
+            "plugin:storybook/recommended"
+        ]
+    },
+    "main": "dist/index.js",
+    "module": "dist/index.esm.js",
+    "files": [
+        "dist",
+        "README.md"
+    ],
+    "type": "module",
+    "types": "dist/index.d.ts",
+    "keywords": [
+        "nextjs",
+        "carousel",
+        "react",
+        "typescript",
+        "marketing website",
+        "tailwindcss",
+        "swipeable",
+        "cms",
+        "infinite carousel"
     ]
-  },
-  "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "files": [
-    "dist",
-    "README.md"
-  ],
-  "type": "module",
-  "types": "dist/index.d.ts"
 }
