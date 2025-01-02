@@ -85,7 +85,7 @@ I strongly recommend you provide your own `alt`, especially if you are building 
 `imageFocalPoint` should be self-explanatory if you're familiar with the concept.
 
 ### NRC Frame Component
-This will be either a React component, or a function that returns a React component. If it's a function, it will receive the `setCarouselIndex` prop if you need it.
+This will be either a React component, or a function that returns a React component. If it's a function, it will receive the `incrementCarousel` & `decrementCarousel` props.
 
 The component will be inside an absolute positioned container with full width and height of the Frame.
 
