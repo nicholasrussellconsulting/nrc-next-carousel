@@ -16,6 +16,9 @@
         "declarationDir": "./dist/types",
         "jsx": "react",
         "incremental": true,
+        "sourceMap": false,
+        "inlineSources": false,
+        "declarationMap": false,
         "plugins": [
             {
                 "name": "next"

@@ -15,24 +15,27 @@ const config = [
                 file: packageJson.main,
                 format: "cjs",
                 sourcemap: true,
+                sourcemapExcludeSources: false,
             },
             {
                 file: packageJson.module,
                 format: "esm",
                 sourcemap: true,
+                sourcemapExcludeSources: false,
             },
         ],
         plugins: [
+            banner2(() => `"use client"\n`),
             resolve(),
             commonjs(),
             typescript({
                 tsconfig: "./tsconfig.json",
+                sourceMap: true,
             }),
             postcss({
                 extract: false,
                 minimize: true,
             }),
-            banner2(() => `"use client"\n`),
         ],
         external: ["react", "react-dom", "tailwindcss", "next"],
     },
