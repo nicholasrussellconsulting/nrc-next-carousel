@@ -1,4 +1,4 @@
-# NRC Next.js/Tailwind Carousel (Beta v0.9.0)
+# NRC Next.js/Tailwind Carousel (Beta v0.9.x)
 
 (NRC stands for my LLC; [Nicholas Russell Consulting](https://www.nicholasrussellconsulting.com/))
 
