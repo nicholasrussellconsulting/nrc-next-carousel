@@ -24,26 +24,43 @@ In your tailwind.config.ts, add
 
 like...
 
-    tailwind.config.ts
-    export  default {
-	    content: [
-			"./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-			"./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-			"./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-			"./node_modules/nrc-next-carousel/dist/**/*.{js,ts,jsx,tsx}",
-		]
-	}
+```ts
+import type { Config } from "tailwindcss";
+
+export default {
+  content: [
+    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./node_modules/nrc-next-carousel/dist/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    screens: {
+      sm: "28rem",
+    },
+    extend: {
+      colors: {
+        background: "var(--background)",
+        foreground: "var(--foreground)",
+      },
+    },
+  },
+  plugins: [],
+} satisfies Config;
+```
 
 ## Usage
 
-    import { Carousel } from  "nrc-next-carousel";
-    export  default  function  Home() {
-	    return (
-		    <>
-			    <Carousel/>;
-		    </>
-		);
-	}
+```tsx
+import { Carousel } from  "nrc-next-carousel";
+export  default  function  Home() {
+    return (
+        <>
+            <Carousel frames={[...]}/>;
+        </>
+    );
+}
+```
 
 ## Documentation (Beta)
 I plan to have more documentation in the future, and this will eventually be updated with that link. Everything should work exactly how you think it works, so my hope is that this documentation is not needed. This package is **mobile-first opinionated** meaning "mobile" is treated as default. If you are not taking advantage of the breakpoint system, you will be using the props called "mobile".
