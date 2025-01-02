@@ -34,7 +34,7 @@ const config = [
             }),
             banner2(() => `"use client"\n`),
         ],
-        external: ["react", "react-dom", "tailwindcss"],
+        external: ["react", "react-dom", "tailwindcss", "next"],
     },
     {
         input: "dist/types/index.d.ts",
