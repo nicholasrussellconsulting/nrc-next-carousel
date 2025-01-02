@@ -72,6 +72,8 @@ The `loadingComponent` is what will appear before the blurUrl is loaded. This de
 
 You can adjust the `slideDuration` to change the auto-play speed. And turn off auto-play with `noAutoPlay`.
 
+You can turn off the default blur with `noBlur`. You can adjust the default quality of the initial blur image by using the `blurQuality` prop (use a number between 1-100). The larger the number, the better looking the image, but the worse the load time.
+
 ### Frames
 They `key` prop is only needed if you are not using images (or your images have the same src for some reason). 
 
@@ -80,9 +82,7 @@ You will see there is responsive architecture here, and you can use both `mobile
 ### NRC Image
 I strongly recommend you provide your own `alt`, especially if you are building a marketing/ecom site.
 
-You can adjust the quality of the initial blur image by using the `blurQuality` prop (use a number between 1-100). The larger the number, the better looking the image, but the worse the load time.
-
-You can turn off the default blur with `noBlur`. `imageFocalPoint` should be self-explanatory if you're familiar with the concept.
+`imageFocalPoint` should be self-explanatory if you're familiar with the concept.
 
 ### NRC Frame Component
 This will be either a React component, or a function that returns a React component. If it's a function, it will receive the `setCarouselIndex` prop if you need it.

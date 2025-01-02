@@ -3,8 +3,8 @@ import { StaticImageData } from "next/image";
 export type Breakpoint = "xs" | "sm" | "md" | "lg" | "xl";
 
 export type DesktopMobile<T extends string | number> = {
-    desktop: T;
-    mobile: T;
+    desktop?: T;
+    mobile?: T;
 };
 
 export type FocalPoint = {
@@ -14,14 +14,12 @@ export type FocalPoint = {
 
 export type NRCImage = {
     alt?: string;
-    /* This is the blur quality of the initial blurred image 1-100, the trade off is performance verse beauty. */
-    blurQuality?: number;
-    noBlur?: boolean;
     imageFocalPoint?: FocalPoint;
 };
 
 export type FrameRenderedComponentProps = {
-    setCarouselIndex: React.Dispatch<React.SetStateAction<number>>;
+    incrementCarousel: () => void;
+    decrementCarousel: () => void;
 };
 
 export type NRCFrameComponent = {
@@ -48,4 +46,7 @@ export type NRCCarouselProps = {
     noAutoPlay?: boolean;
     /* This component will be displayed before the images load in an absolutely positioned container with gull width and height. */
     loadingComponent?: React.ReactNode;
+    /* This is the blur quality of the initial blurred image 1-100, the trade off is performance verse beauty. */
+    blurQuality?: number;
+    noBlur?: boolean;
 };

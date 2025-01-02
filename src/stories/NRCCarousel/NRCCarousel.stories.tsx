@@ -1,3 +1,4 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { NRCCarouselStage } from "./NRCCarouselStage";
 
@@ -105,6 +106,82 @@ export const Default: Story = {
                         alt: "tropical",
                     },
                 },
+            },
+        ],
+    },
+};
+
+export const OneSlide: Story = {
+    args: {
+        breakpoint: "sm",
+        frames: [
+            {
+                desktop: {
+                    image: {
+                        src: "https://images.ctfassets.net/wkoudqq0i14u/6biBiOZi4kHOPqQNKUfiw0/159af435cf587941e26deeb26d2dd110/swamp-frogs-desktop.png",
+                        width: 1792,
+                        height: 600,
+                        alt: "frog band",
+                    },
+                },
+                mobile: {
+                    image: {
+                        src: "https://images.ctfassets.net/wkoudqq0i14u/4w3rKIcmF02bi8vwnrsNwO/c594d738bce94cd107b2915f6b8cebba/swamp-frogs-mobile.png",
+                        width: 640,
+                        height: 800,
+                        alt: "frog band",
+                    },
+                },
+            },
+        ],
+    },
+};
+
+export const ComponentBased: Story = {
+    args: {
+        heights: { mobile: 800 },
+        frames: [
+            {
+                mobile: {
+                    component({ decrementCarousel, incrementCarousel }) {
+                        return (
+                            <div className="bg-blue-400 flex w-full h-full flex-col justify-center items-center">
+                                <h1>Hello</h1>
+                                <button onClick={incrementCarousel}>Increment</button>
+                                <button onClick={decrementCarousel}>Decrement</button>
+                            </div>
+                        );
+                    },
+                },
+                key: "1",
+            },
+            {
+                mobile: {
+                    component({ decrementCarousel, incrementCarousel }) {
+                        return (
+                            <div className="bg-red-300 flex w-full h-full flex-col justify-center items-center">
+                                <h1>Hello</h1>
+                                <button onClick={incrementCarousel}>Increment</button>
+                                <button onClick={decrementCarousel}>Decrement</button>
+                            </div>
+                        );
+                    },
+                },
+                key: "2",
+            },
+            {
+                mobile: {
+                    component({ decrementCarousel, incrementCarousel }) {
+                        return (
+                            <div className="bg-green-400 flex w-full h-full flex-col justify-center items-center">
+                                <h1>Hello</h1>
+                                <button onClick={incrementCarousel}>Increment</button>
+                                <button onClick={decrementCarousel}>Decrement</button>
+                            </div>
+                        );
+                    },
+                },
+                key: "3",
             },
         ],
     },

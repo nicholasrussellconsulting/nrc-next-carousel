@@ -1,6 +1,6 @@
 {
     "name": "nrc-next-carousel",
-    "version": "0.9.3",
+    "version": "0.9.4",
     "description": "Next.js Carousel w/ with swipeability and Tailwind breakpoint support",
     "scripts": {
         "build-types": "tsc",

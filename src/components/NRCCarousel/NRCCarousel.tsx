@@ -22,23 +22,33 @@ const breakpointClasses: BreakpointClassesShape = {
     xl: { desktop: "hidden xl:flex", mobile: "flex xl:hidden" },
 };
 
-const NRCCarousel = ({ frames, breakpoint, slideDuration, noAutoPlay, heights, loadingComponent }: NRCCarouselProps) => {
-    const breakpointClass: DesktopMobile<string> = breakpoint ? breakpointClasses[breakpoint] : { desktop: "hidden", mobile: "block" };
+const NRCCarousel = ({
+    frames,
+    breakpoint,
+    slideDuration,
+    noAutoPlay,
+    heights,
+    loadingComponent,
+    blurQuality,
+    noBlur,
+}: NRCCarouselProps) => {
+    const breakpointClass: DesktopMobile<string> = breakpoint ? breakpointClasses[breakpoint] : { desktop: "hidden", mobile: "flex" };
     const [index, setIndex] = useState(1);
     const [firstImageLoaded, setFirstImageLoaded] = useState(false);
     const [playingAnimation, setPlayingAnimation] = useState(false);
     const [disableAnimation, setDisableAnimation] = useState(false);
     const [willResetAnimStateOnAnimEnd, setWillResetAnimStateOnAnimEnd] = useState(false);
     const infiniteFrames = [frames[frames.length - 1], ...frames, frames[0]];
+    const lessThanTwoFrames = frames.length < 2;
     const incIndex = () => {
-        if (playingAnimation) {
+        if (playingAnimation || lessThanTwoFrames) {
             return;
         }
         setPlayingAnimation(true);
         setIndex((i) => i + 1);
     };
     const decIndex = () => {
-        if (playingAnimation) {
+        if (playingAnimation || lessThanTwoFrames) {
             return;
         }
         setPlayingAnimation(true);
@@ -53,17 +63,11 @@ const NRCCarousel = ({ frames, breakpoint, slideDuration, noAutoPlay, heights, l
     const containerRef = useRef<HTMLDivElement>(null);
     const isHovering = useHover(containerRef as RefObject<HTMLDivElement>);
 
+    const firstImageLoadedOrNoImages = firstImageLoaded || frames.every((frame) => !frame.mobile?.image);
+
     const toggleFirstImageLoaded = () => {
         if (!firstImageLoaded) {
             setFirstImageLoaded(true);
-        }
-    };
-
-    const setCarouselIndex: React.Dispatch<React.SetStateAction<number>> = (value) => {
-        if (typeof value === "function") {
-            setCarouselIndex((prev) => value(prev + 1));
-        } else {
-            setCarouselIndex(value + 1);
         }
     };
 
@@ -76,14 +80,14 @@ const NRCCarousel = ({ frames, breakpoint, slideDuration, noAutoPlay, heights, l
     });
 
     useEffect(() => {
-        if (noAutoPlay) {
+        if (noAutoPlay || lessThanTwoFrames) {
             return;
         }
         const interval = setInterval(() => {
-            if (!isHovering && firstImageLoaded) incIndex();
+            if (!isHovering && firstImageLoadedOrNoImages) incIndex();
         }, slideDuration || DEFAULT_DURATION);
         return () => clearInterval(interval);
-    }, [noAutoPlay, slideDuration, isHovering, firstImageLoaded]);
+    }, [noAutoPlay, slideDuration, isHovering, firstImageLoaded, frames]);
 
     useEffect(() => {
         if (index === infiniteFrames.length - 1 || index === 0) {
@@ -117,15 +121,6 @@ const NRCCarousel = ({ frames, breakpoint, slideDuration, noAutoPlay, heights, l
                 style={{ transform: `translateX(-${index * 100}%)` }}
                 {...handlers}
             >
-                {!firstImageLoaded &&
-                    (!!loadingComponent ? (
-                        loadingComponent
-                    ) : (
-                        <div
-                            className="animate-pulse w-full bg-gray-300 transform translate-x-full"
-                            style={{ aspectRatio: !heights?.mobile ? mobileAspectRatio : undefined, height: heights?.mobile }}
-                        />
-                    ))}
                 {infiniteFrames.map((frame, i) => (
                     <div
                         key={deriveFrameKey({
@@ -142,7 +137,11 @@ const NRCCarousel = ({ frames, breakpoint, slideDuration, noAutoPlay, heights, l
                             component={frame.mobile?.component}
                             image={frame.mobile?.image}
                             onLoad={i === 0 ? toggleFirstImageLoaded : undefined}
-                            setCarouselIndex={setCarouselIndex}
+                            incrementCarousel={incIndex}
+                            decrementCarousel={decIndex}
+                            loadingComponent={loadingComponent}
+                            blurQuality={blurQuality}
+                            noBlur={noBlur}
                         />
                     </div>
                 ))}
@@ -153,15 +152,6 @@ const NRCCarousel = ({ frames, breakpoint, slideDuration, noAutoPlay, heights, l
                     style={{ transform: `translateX(-${index * 100}%)` }}
                     {...handlers}
                 >
-                    {!firstImageLoaded &&
-                        (!!loadingComponent ? (
-                            <div className="translate-x-full">{loadingComponent}</div>
-                        ) : (
-                            <div
-                                className="animate-pulse w-full bg-gray-300 transform translate-x-full"
-                                style={{ aspectRatio: !heights?.desktop ? desktopAspectRatio : undefined, height: heights?.desktop }}
-                            />
-                        ))}
                     {infiniteFrames.map((frame, i) => (
                         <div
                             key={deriveFrameKey({ frame, isFirstElement: i === 0, isLastElement: i === infiniteFrames.length - 1 })}
@@ -173,7 +163,11 @@ const NRCCarousel = ({ frames, breakpoint, slideDuration, noAutoPlay, heights, l
                                 component={frame.desktop?.component}
                                 image={frame.desktop?.image}
                                 onLoad={i === 0 ? toggleFirstImageLoaded : undefined}
-                                setCarouselIndex={setCarouselIndex}
+                                incrementCarousel={incIndex}
+                                decrementCarousel={decIndex}
+                                loadingComponent={loadingComponent}
+                                blurQuality={blurQuality}
+                                noBlur={noBlur}
                             />
                         </div>
                     ))}
@@ -191,7 +185,7 @@ type DeriveFrameKeyParams = {
 };
 
 const deriveFrameKey = ({ frame, isFirstElement, isLastElement, isMobile }: DeriveFrameKeyParams) => {
-    let key = frame.key || isMobile ? frame.mobile?.image?.src : frame.desktop?.image?.src;
+    let key = frame.key || (isMobile ? frame.mobile?.image?.src : frame.desktop?.image?.src);
     if (isFirstElement) {
         key = key + "-clone-1";
     }

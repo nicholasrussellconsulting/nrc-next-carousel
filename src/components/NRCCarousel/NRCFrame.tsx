@@ -11,15 +11,27 @@ export const NRCFrame = ({
     priority,
     component,
     onLoad,
-    setCarouselIndex,
-}: NRCFrameComponent & { priority?: boolean; onLoad?: () => void; setCarouselIndex: React.Dispatch<React.SetStateAction<number>> }) => {
+    loadingComponent,
+    blurQuality,
+    noBlur,
+    decrementCarousel,
+    incrementCarousel,
+}: NRCFrameComponent & {
+    priority?: boolean;
+    onLoad?: () => void;
+    incrementCarousel: () => void;
+    decrementCarousel: () => void;
+    loadingComponent?: React.ReactNode;
+    blurQuality?: number;
+    noBlur?: boolean;
+}) => {
     const [blurUri, setBlurUri] = useState<undefined | string>(undefined);
     const [loaded, setLoaded] = useState(false);
     useEffect(() => {
-        if (!image?.src || image.blurDataURL) {
+        if (!image?.src || image.blurDataURL || noBlur) {
             return;
         }
-        fetch(image.src + `?w=${image.blurWidth || DEFAULT_BLUR_WIDTH}&q=${image.blurQuality || DEFAULT_BLUR_QUALITY}`)
+        fetch(image.src + `?w=${image.blurWidth || DEFAULT_BLUR_WIDTH}&q=${blurQuality || DEFAULT_BLUR_QUALITY}`)
             .then((res) => res.arrayBuffer())
             .then((buffer) => {
                 const base64 = Buffer.from(buffer).toString("base64");
@@ -33,28 +45,39 @@ export const NRCFrame = ({
         width: "100%",
     };
     return (
-        !!image?.src && (
-            <>
-                <Image
-                    alt={image?.alt as string}
-                    src={image?.src}
-                    width={image.width}
-                    height={image.height}
-                    style={imageStyles}
-                    className={clsx("absolute inset-0 object-cover", { "blur-sm": !loaded })}
-                    priority={priority}
-                    blurDataURL={image.blurDataURL || blurUri}
-                    placeholder={blurUri || image.blurDataURL ? "blur" : undefined}
-                    onLoad={() => {
-                        setLoaded(true);
-                        if (onLoad) onLoad();
-                    }}
-                />
-                {!!component && (
-                    <div className="absolute w-full h-full">{isFunction(component) ? component({ setCarouselIndex }) : component}</div>
-                )}
-            </>
-        )
+        <>
+            {!!image?.src && (
+                <>
+                    {!loaded &&
+                        (loadingComponent ? (
+                            loadingComponent
+                        ) : (
+                            <div className="absolute animate-pulse w-full bg-gray-300 transform h-full" />
+                        ))}
+                    <Image
+                        alt={image?.alt as string}
+                        src={image?.src}
+                        width={image.width}
+                        height={image.height}
+                        style={imageStyles}
+                        className={clsx("absolute inset-0 object-cover", { "blur-sm": !loaded })}
+                        priority={priority}
+                        blurDataURL={noBlur ? undefined : image.blurDataURL || blurUri}
+                        placeholder={noBlur || (!image.blurDataURL && !blurUri) ? undefined : "blur"}
+                        onLoad={() => {
+                            setLoaded(true);
+                            if (onLoad) onLoad();
+                        }}
+                    />
+                </>
+            )}
+
+            {!!component && (
+                <div className="absolute inset-0 w-full h-full">
+                    {isFunction(component) ? component({ decrementCarousel, incrementCarousel }) : component}
+                </div>
+            )}
+        </>
     );
 };
 
