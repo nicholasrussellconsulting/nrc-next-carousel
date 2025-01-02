@@ -1,1 +1,1 @@
-export { default as Carousel } from "./components/Carousel/Carousel";
+export { default as Carousel } from "./components/NRCCarousel/NRCCarousel";

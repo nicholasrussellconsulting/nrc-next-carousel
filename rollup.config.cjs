@@ -4,6 +4,7 @@ const commonjs = require("@rollup/plugin-commonjs");
 const typescript = require("@rollup/plugin-typescript");
 const postcss = require("rollup-plugin-postcss");
 const packageJson = require("./package.json");
+const dts = require("rollup-plugin-dts").default;
 
 const config = [
   {
@@ -23,13 +24,23 @@ const config = [
     plugins: [
       resolve(),
       commonjs(),
-      typescript({ tsconfig: "./tsconfig.json" }),
+      typescript({
+        tsconfig: "./tsconfig.json",
+      }),
       postcss({
         extract: false,
         minimize: true,
       }),
     ],
     external: ["react", "react-dom", "tailwindcss"],
+  },
+  {
+    input: "dist/types/index.d.ts",
+    output: {
+      file: "dist/index.d.ts",
+      format: "es",
+    },
+    plugins: [dts()],
   },
 ];
 
