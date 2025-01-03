@@ -12,6 +12,8 @@ If you're using this package on an enterprise-level application that happens to 
 
 [![GitHub Sponsors](https://img.shields.io/badge/sponsor-GitHub-blue?logo=github)](https://github.com/sponsors/nlowen233)
 
+Checkout my highest sponsor tier if you're looking for face-to-face support and bug prioritization.
+
 ## Preview
 
 [Check out the Storybook Demo](https://carousel.nicholasrussellconsulting.com)
