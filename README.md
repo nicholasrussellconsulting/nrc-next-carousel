@@ -2,6 +2,8 @@
 
 (NRC stands for my LLC; [Nicholas Russell Consulting](https://www.nicholasrussellconsulting.com/))
 
+[![npm version](https://badge.fury.io/js/nrc-next-carousel.svg)](https://www.npmjs.com/package/nrc-next-carousel)
+
 This is a swipeable, infinite scrolling, user-friendly Next.js Carousel built **only for** Next.js/Tailwind users. If you're project uses both of these technologies, this package will make your life a whole lot easier. This package was built with marketing/ecomm in mind.
 
 ## Preview
