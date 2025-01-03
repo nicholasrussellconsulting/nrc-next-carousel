@@ -6,6 +6,10 @@
 
 This is a swipeable, infinite scrolling, user-friendly Next.js Carousel built **only for** Next.js/Tailwind users. If you're project uses both of these technologies, this package will make your life a whole lot easier. This package was built with marketing/ecomm in mind.
 
+## Support
+
+[![GitHub Sponsors](https://img.shields.io/badge/sponsor-GitHub-blue?logo=github)](https://github.com/sponsors/nlowen233)
+
 ## Preview
 
 [Check out the Storybook Demo](https://carousel.nicholasrussellconsulting.com)
@@ -80,7 +84,7 @@ You can adjust the `slideDuration` to change the auto-play speed. And turn off a
 
 You can turn off the default blur with `noBlur`. You can adjust the default quality of the initial blur image by using the `blurQuality` prop (use a number between 1-100). The larger the number, the better looking the image, but the worse the load time.
 
-The `controlsComponent` will be an optional function that returns a React component. It sits inside the Carousel <section> and can be used to create custom controls for your Carousel. I am not a designer so this is left completely up to the user in terms of UI/UX. It gets `incrementCarousel`, `decrementCarousel`, and `jumpTo` props. [Check this story](https://carousel.nicholasrussellconsulting.com/?path=/story/nrccarousel--with-controls) for an example. 
+The `controlsComponent` will be an optional function that returns a React component. It sits inside the Carousel component (a position:relative section) and can be used to create custom controls for your Carousel. This package has no opinion on controls, so this is left completely up to the user in terms of UI/UX. Your component will receive `incrementCarousel`, `decrementCarousel`, and `jumpTo` props. [Check this story](https://carousel.nicholasrussellconsulting.com/?path=/story/nrccarousel--with-controls) for an example. 
 
 ### Frames
 The `key` prop is only needed if you are not using images (or your images have the same src for some reason). 
