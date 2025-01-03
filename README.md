@@ -4,6 +4,10 @@
 
 This is a swipeable, infinite scrolling, user-friendly Next.js Carousel built **only for** Next.js/Tailwind users. If you're project uses both of these technologies, this package will make your life a whole lot easier. This package was built with marketing/ecomm in mind.
 
+## Preview
+
+[Check out the Storybook Demo](https://carousel.nicholasrussellconsulting.com)
+
 ## Features
 
 - Infinite scrolling
