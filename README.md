@@ -8,6 +8,8 @@ This is a swipeable, infinite scrolling, user-friendly Next.js Carousel built **
 
 ## Support
 
+If you're using this package on an enterprise-level application that happens to be financially prosperous, do me the favor of mentioning where the beautiful carousel came from to your manager, here is my sponsor link.
+
 [![GitHub Sponsors](https://img.shields.io/badge/sponsor-GitHub-blue?logo=github)](https://github.com/sponsors/nlowen233)
 
 ## Preview
