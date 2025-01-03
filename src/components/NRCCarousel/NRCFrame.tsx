@@ -16,11 +16,13 @@ export const NRCFrame = ({
     noBlur,
     decrementCarousel,
     incrementCarousel,
+    jumpTo,
 }: NRCFrameComponent & {
     priority?: boolean;
     onLoad?: () => void;
     incrementCarousel: () => void;
     decrementCarousel: () => void;
+    jumpTo: (i: number) => void;
     loadingComponent?: React.ReactNode;
     blurQuality?: number;
     noBlur?: boolean;
@@ -74,7 +76,7 @@ export const NRCFrame = ({
 
             {!!component && (
                 <div className="absolute inset-0 w-full h-full">
-                    {isFunction(component) ? component({ decrementCarousel, incrementCarousel }) : component}
+                    {isFunction(component) ? component({ decrementCarousel, incrementCarousel, jumpTo }) : component}
                 </div>
             )}
         </>

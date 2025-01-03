@@ -19,7 +19,7 @@ This is a swipeable, infinite scrolling, user-friendly Next.js Carousel built **
 - Autoplay capabilities
 - Support for responsive design based on your custom Tailwind breakpoints
 - Performance first 
-- Accessibility handled
+- SEO/Accessibility considerate (tabbing, motion safety, semantic HTML, aria)
   
 ## Installation
 
@@ -68,8 +68,8 @@ export  default  function  Home() {
 }
 ```
 
-## Documentation (Beta)
-I plan to have more documentation in the future, and this will eventually be updated with that link. Everything should work exactly how you think it works, so my hope is that this documentation is not needed. This package is **mobile-first opinionated** meaning "mobile" is treated as default. If you are not taking advantage of the breakpoint system, you will be using the props called "mobile".
+## Documentation
+I plan to have more documentation in the future, and this will eventually be updated with that link. Everything should work exactly how you think it works, so my hope is that this documentation is not needed. This package is **mobile-first opinionated** meaning "mobile" is treated as default. If you are not taking advantage of the breakpoint system, you will be using the props called "mobile". If there is something that is not clear in this documentation, you might be able to find a solution by reading the .stories file in the source code for examples of prop configurations.
 
 ### Carousel Props
 The Carousel is made up of Frames which can be images, React components, or both (more on that later). The size of these frames is controlled by the aspect ratio of the image of your first Frame, therefore it's best practice to use images of the same aspect ratio to avoid stretching (alternatively you can use the `heights` prop to control the sizes of the frames). 
@@ -80,18 +80,20 @@ You can adjust the `slideDuration` to change the auto-play speed. And turn off a
 
 You can turn off the default blur with `noBlur`. You can adjust the default quality of the initial blur image by using the `blurQuality` prop (use a number between 1-100). The larger the number, the better looking the image, but the worse the load time.
 
+The `controlsComponent` will be an optional function that returns a React component. It sits inside the Carousel <section> and can be used to create custom controls for your Carousel. I am not a designer so this is left completely up to the user in terms of UI/UX. It gets `incrementCarousel`, `decrementCarousel`, and `jumpTo` props. [Check this story](https://carousel.nicholasrussellconsulting.com/?path=/story/nrccarousel--with-controls) for an example. 
+
 ### Frames
 The `key` prop is only needed if you are not using images (or your images have the same src for some reason). 
 
 You will see there is responsive architecture here, and you can use both `mobile` & `desktop` inside each Frame. If you are only using one, use `mobile`.
 
 ### NRC Image
-I strongly recommend you provide your own `alt`, especially if you are building a marketing/ecom site.
+I strongly recommend you provide your own `alt`, especially if you are building a marketing/ecomm site.
 
 `imageFocalPoint` should be self-explanatory if you're familiar with the concept.
 
 ### NRC Frame Component
-This will be either a React component, or a function that returns a React component. If it's a function, it will receive the `incrementCarousel` & `decrementCarousel` props.
+This will be either a React component, or a function that returns a React component. If it's a function, it will receive the `incrementCarousel`, `decrementCarousel`, and `jumpTo` props.
 
 The component will be inside an absolute positioned container with full width and height of the Frame.
 

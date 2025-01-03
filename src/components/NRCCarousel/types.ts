@@ -20,6 +20,7 @@ export type NRCImage = {
 export type FrameRenderedComponentProps = {
     incrementCarousel: () => void;
     decrementCarousel: () => void;
+    jumpTo: (index: number) => void;
 };
 
 export type NRCFrameComponent = {
@@ -50,4 +51,5 @@ export type NRCCarouselProps = {
     blurQuality?: number;
     noBlur?: boolean;
     ariaLabel?: string;
+    controlsComponent?: (props: FrameRenderedComponentProps) => React.ReactNode;
 };

@@ -33,6 +33,7 @@ const NRCCarousel = ({
     blurQuality,
     noBlur,
     ariaLabel,
+    controlsComponent,
 }: NRCCarouselProps) => {
     const breakpointClass: DesktopMobile<string> = breakpoint ? breakpointClasses[breakpoint] : { desktop: "hidden", mobile: "flex" };
     const [index, setIndex] = useState(1);
@@ -55,6 +56,18 @@ const NRCCarousel = ({
         }
         setPlayingAnimation(true);
         setIndex((i) => i - 1);
+    };
+    const jumpTo = (i: number) => {
+        if (playingAnimation || lessThanTwoFrames) {
+            return;
+        }
+        if (i <= 1) {
+            setIndex(1);
+        } else if (i >= infiniteFrames.length - 1) {
+            setIndex(infiniteFrames.length - 2);
+        } else {
+            setIndex(i);
+        }
     };
     const firstFrame = frames[0];
     const desktopAspectRatio =
@@ -156,6 +169,7 @@ const NRCCarousel = ({
                             onLoad={i === 0 ? toggleFirstImageLoaded : undefined}
                             incrementCarousel={incIndex}
                             decrementCarousel={decIndex}
+                            jumpTo={jumpTo}
                             loadingComponent={loadingComponent}
                             blurQuality={blurQuality}
                             noBlur={noBlur}
@@ -164,7 +178,7 @@ const NRCCarousel = ({
                 ))}
             </div>
             {!!breakpoint && (
-                <section
+                <div
                     className={clsx(
                         { "motion-safe:transition-transform motion-safe:duration-500": !disableAnimation },
                         breakpointClass.desktop,
@@ -190,12 +204,14 @@ const NRCCarousel = ({
                                 decrementCarousel={decIndex}
                                 loadingComponent={loadingComponent}
                                 blurQuality={blurQuality}
+                                jumpTo={jumpTo}
                                 noBlur={noBlur}
                             />
                         </div>
                     ))}
-                </section>
+                </div>
             )}
+            {!!controlsComponent && controlsComponent({ decrementCarousel: decIndex, incrementCarousel: incIndex, jumpTo })}
         </section>
     );
 };
