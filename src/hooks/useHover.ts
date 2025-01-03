@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import type { RefObject } from "react";
 
-//This hover is conditional render safe, which is why you might use it over useHover from usehooks-ts
 export function useHover<T extends HTMLElement = HTMLElement>(elementRef: RefObject<T>): boolean {
     const [value, setValue] = useState<boolean>(false);
 

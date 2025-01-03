@@ -49,4 +49,5 @@ export type NRCCarouselProps = {
     /* This is the blur quality of the initial blurred image 1-100, the trade off is performance verse beauty. */
     blurQuality?: number;
     noBlur?: boolean;
+    ariaLabel?: string;
 };

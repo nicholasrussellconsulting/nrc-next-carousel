@@ -6,6 +6,7 @@ import clsx from "clsx";
 import { NRCFrame } from "./NRCFrame";
 import { useHover } from "@/hooks/useHover";
 import { useSwipeable } from "react-swipeable";
+import { useHasFocus } from "@/hooks/useHasFocus";
 
 const DEFAULT_ASPECT_RATIO = [16, 9];
 const DEFAULT_DURATION = 6000;
@@ -31,6 +32,7 @@ const NRCCarousel = ({
     loadingComponent,
     blurQuality,
     noBlur,
+    ariaLabel,
 }: NRCCarouselProps) => {
     const breakpointClass: DesktopMobile<string> = breakpoint ? breakpointClasses[breakpoint] : { desktop: "hidden", mobile: "flex" };
     const [index, setIndex] = useState(1);
@@ -62,6 +64,8 @@ const NRCCarousel = ({
 
     const containerRef = useRef<HTMLDivElement>(null);
     const isHovering = useHover(containerRef as RefObject<HTMLDivElement>);
+    const hasFocus = useHasFocus(containerRef as RefObject<HTMLDivElement>);
+    const userIsEngaging = isHovering || hasFocus;
 
     const firstImageLoadedOrNoImages = firstImageLoaded || frames.every((frame) => !frame.mobile?.image);
 
@@ -79,15 +83,19 @@ const NRCCarousel = ({
         trackMouse: true,
     });
 
+    const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === "ArrowRight") incIndex();
+        if (e.key === "ArrowLeft") decIndex();
+    };
     useEffect(() => {
         if (noAutoPlay || lessThanTwoFrames) {
             return;
         }
         const interval = setInterval(() => {
-            if (!isHovering && firstImageLoadedOrNoImages) incIndex();
+            if (!userIsEngaging && firstImageLoadedOrNoImages) incIndex();
         }, slideDuration || DEFAULT_DURATION);
         return () => clearInterval(interval);
-    }, [noAutoPlay, slideDuration, isHovering, firstImageLoaded, frames]);
+    }, [noAutoPlay, slideDuration, isHovering, hasFocus, firstImageLoaded, frames]);
 
     useEffect(() => {
         if (index === infiniteFrames.length - 1 || index === 0) {
@@ -115,10 +123,17 @@ const NRCCarousel = ({
         };
     }, [playingAnimation]);
     return (
-        <div className="overflow-hidden w-full relative" ref={containerRef} onDragStart={(e) => e.preventDefault()}>
+        <section
+            className="overflow-hidden w-full relative"
+            ref={containerRef}
+            onDragStart={(e) => e.preventDefault()}
+            role="region"
+            aria-label={ariaLabel || "Promotional carousel"}
+        >
             <div
-                className={clsx({ "transition-transform duration-500": !disableAnimation }, breakpointClass.mobile)}
+                className={clsx({ "motion-safe:transition-transform motion-safe:duration-500": !disableAnimation }, breakpointClass.mobile)}
                 style={{ transform: `translateX(-${index * 100}%)` }}
+                onKeyDown={onKeyDown}
                 {...handlers}
             >
                 {infiniteFrames.map((frame, i) => (
@@ -130,6 +145,8 @@ const NRCCarousel = ({
                             isMobile: true,
                         })}
                         className="relative w-full flex-shrink-0"
+                        aria-hidden={i !== index}
+                        inert={i !== index}
                         style={{ aspectRatio: !heights?.mobile ? mobileAspectRatio : undefined, height: heights?.mobile }}
                     >
                         <NRCFrame
@@ -147,9 +164,13 @@ const NRCCarousel = ({
                 ))}
             </div>
             {!!breakpoint && (
-                <div
-                    className={clsx({ "transition-transform duration-500": !disableAnimation }, breakpointClass.desktop)}
+                <section
+                    className={clsx(
+                        { "motion-safe:transition-transform motion-safe:duration-500": !disableAnimation },
+                        breakpointClass.desktop,
+                    )}
                     style={{ transform: `translateX(-${index * 100}%)` }}
+                    onKeyDown={onKeyDown}
                     {...handlers}
                 >
                     {infiniteFrames.map((frame, i) => (
@@ -157,6 +178,8 @@ const NRCCarousel = ({
                             key={deriveFrameKey({ frame, isFirstElement: i === 0, isLastElement: i === infiniteFrames.length - 1 })}
                             className="relative w-full flex-shrink-0"
                             style={{ aspectRatio: !heights?.desktop ? desktopAspectRatio : undefined, height: heights?.desktop }}
+                            aria-hidden={i !== index}
+                            inert={i !== index}
                         >
                             <NRCFrame
                                 priority={i === 0}
@@ -171,9 +194,9 @@ const NRCCarousel = ({
                             />
                         </div>
                     ))}
-                </div>
+                </section>
             )}
-        </div>
+        </section>
     );
 };
 

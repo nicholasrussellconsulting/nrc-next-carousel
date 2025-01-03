@@ -52,7 +52,7 @@ export const NRCFrame = ({
                         (loadingComponent ? (
                             loadingComponent
                         ) : (
-                            <div className="absolute animate-pulse w-full bg-gray-300 transform h-full" />
+                            <div className="absolute animate-pulse w-full bg-gray-300 transform h-full" aria-busy="true" />
                         ))}
                     <Image
                         alt={image?.alt as string}
