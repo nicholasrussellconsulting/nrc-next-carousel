@@ -66,7 +66,7 @@ export  default  function  Home() {
 I plan to have more documentation in the future, and this will eventually be updated with that link. Everything should work exactly how you think it works, so my hope is that this documentation is not needed. This package is **mobile-first opinionated** meaning "mobile" is treated as default. If you are not taking advantage of the breakpoint system, you will be using the props called "mobile".
 
 ### Carousel Props
-The Carousel is made up of Frames which can be images, React components, or both (more on that later). The size of these frames is controlled by the aspect ratio of the image of your first Frame (alternatively you can use the `heights` prop to control the sizes of the frames). 
+The Carousel is made up of Frames which can be images, React components, or both (more on that later). The size of these frames is controlled by the aspect ratio of the image of your first Frame, therefore it's best practice to use images of the same aspect ratio to avoid stretching (alternatively you can use the `heights` prop to control the sizes of the frames). 
 
 The `loadingComponent` is what will appear before the blurUrl is loaded. This defaults to a pulsating gray colored div.
 
@@ -75,7 +75,7 @@ You can adjust the `slideDuration` to change the auto-play speed. And turn off a
 You can turn off the default blur with `noBlur`. You can adjust the default quality of the initial blur image by using the `blurQuality` prop (use a number between 1-100). The larger the number, the better looking the image, but the worse the load time.
 
 ### Frames
-They `key` prop is only needed if you are not using images (or your images have the same src for some reason). 
+The `key` prop is only needed if you are not using images (or your images have the same src for some reason). 
 
 You will see there is responsive architecture here, and you can use both `mobile` & `desktop` inside each Frame. If you are only using one, use `mobile`.
 

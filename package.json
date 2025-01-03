@@ -7,7 +7,8 @@
         "start": "storybook dev -p 6006",
         "build": "rollup -c",
         "clean-types": "rimraf dist/types",
-        "bundle": "rimraf dist && npm run build-types && npm run build && npm run clean-types && npm pack"
+        "bundle": "rimraf dist && npm run build-types && npm run build && npm run clean-types && npm pack",
+        "build-storybook": "storybook build"
     },
     "repository": {
         "type": "git",
