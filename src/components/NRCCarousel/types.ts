@@ -56,4 +56,5 @@ export type NRCCarouselProps = {
     noBlur?: boolean;
     ariaLabel?: string;
     controlsComponent?: (props: FrameRenderedComponentPropsWithIndex) => React.ReactNode;
+    willAutoPlayOutsideViewport?: boolean;
 };

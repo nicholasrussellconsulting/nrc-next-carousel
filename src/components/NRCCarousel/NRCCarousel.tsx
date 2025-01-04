@@ -7,6 +7,7 @@ import { NRCFrame } from "./NRCFrame";
 import { useHover } from "@/hooks/useHover";
 import { useSwipeable } from "react-swipeable";
 import { useHasFocus } from "@/hooks/useHasFocus";
+import { useIsVisible } from "@/hooks/useIsVisible";
 
 const DEFAULT_ASPECT_RATIO = [16, 9];
 const DEFAULT_DURATION = 6000;
@@ -34,6 +35,7 @@ const NRCCarousel = ({
     noBlur,
     ariaLabel,
     controlsComponent,
+    willAutoPlayOutsideViewport,
 }: NRCCarouselProps) => {
     const breakpointClass: DesktopMobile<string> = breakpoint ? breakpointClasses[breakpoint] : { desktop: "hidden", mobile: "flex" };
     const [index, setIndex] = useState(1);
@@ -80,6 +82,8 @@ const NRCCarousel = ({
     const hasFocus = useHasFocus(containerRef as RefObject<HTMLDivElement>);
     const userIsEngaging = isHovering || hasFocus;
 
+    const carouselIsInViewport = useIsVisible(containerRef as RefObject<HTMLDivElement>) || willAutoPlayOutsideViewport;
+
     const firstImageLoadedOrNoImages = firstImageLoaded || frames.every((frame) => !frame.mobile?.image);
 
     const toggleFirstImageLoaded = () => {
@@ -101,14 +105,14 @@ const NRCCarousel = ({
         if (e.key === "ArrowLeft") decIndex();
     };
     useEffect(() => {
-        if (noAutoPlay || lessThanTwoFrames) {
+        if (noAutoPlay || lessThanTwoFrames || !carouselIsInViewport) {
             return;
         }
         const interval = setInterval(() => {
             if (!userIsEngaging && firstImageLoadedOrNoImages) incIndex();
         }, slideDuration || DEFAULT_DURATION);
         return () => clearInterval(interval);
-    }, [noAutoPlay, slideDuration, isHovering, hasFocus, firstImageLoaded, frames]);
+    }, [noAutoPlay, slideDuration, isHovering, hasFocus, firstImageLoaded, frames, carouselIsInViewport]);
 
     useEffect(() => {
         if (index === infiniteFrames.length - 1 || index === 0) {
