@@ -28,6 +28,10 @@ Checkout my highest sponsor tier if you're looking for face-to-face support and 
 - Support for responsive design based on your custom Tailwind breakpoints
 - Performance first 
 - SEO/Accessibility considerate (tabbing, motion safety, semantic HTML, aria)
+
+Here's what Lighthouse had to say about it:
+
+![Very high Lighthouse scores](https://images.ctfassets.net/wkoudqq0i14u/6taW7JpIR7ezsCtdAUZQNR/ca36c2e4406b3c670f75c24f3e36d24c/Screenshot_2025-01-03_203303.png)
   
 ## Installation
 
