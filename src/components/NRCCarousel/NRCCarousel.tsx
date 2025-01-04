@@ -211,7 +211,8 @@ const NRCCarousel = ({
                     ))}
                 </div>
             )}
-            {!!controlsComponent && controlsComponent({ decrementCarousel: decIndex, incrementCarousel: incIndex, jumpTo })}
+            {!!controlsComponent &&
+                controlsComponent({ decrementCarousel: decIndex, incrementCarousel: incIndex, jumpTo, currentIndex: index - 1 })}
         </section>
     );
 };

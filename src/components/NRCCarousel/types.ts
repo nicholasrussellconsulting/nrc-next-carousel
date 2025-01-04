@@ -23,6 +23,10 @@ export type FrameRenderedComponentProps = {
     jumpTo: (index: number) => void;
 };
 
+export type FrameRenderedComponentPropsWithIndex = FrameRenderedComponentProps & {
+    currentIndex: number;
+};
+
 export type NRCFrameComponent = {
     image?: Partial<StaticImageData> & NRCImage;
     /* This component will be absolutely positioned on top of the image. */
@@ -51,5 +55,5 @@ export type NRCCarouselProps = {
     blurQuality?: number;
     noBlur?: boolean;
     ariaLabel?: string;
-    controlsComponent?: (props: FrameRenderedComponentProps) => React.ReactNode;
+    controlsComponent?: (props: FrameRenderedComponentPropsWithIndex) => React.ReactNode;
 };

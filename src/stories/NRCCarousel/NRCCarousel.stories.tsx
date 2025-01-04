@@ -1,6 +1,7 @@
 import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 import { NRCCarouselStage } from "./NRCCarouselStage";
+import clsx from "clsx";
 
 const meta: Meta<typeof NRCCarouselStage> = {
     title: "NRCCarousel",
@@ -114,7 +115,7 @@ export const Default: Story = {
 export const WithControls: Story = {
     args: {
         breakpoint: "sm",
-        controlsComponent({ decrementCarousel, incrementCarousel, jumpTo }) {
+        controlsComponent({ decrementCarousel, incrementCarousel, jumpTo, currentIndex }) {
             return (
                 <>
                     <button onClick={incrementCarousel} className="absolute right-2 bottom-1/2 bg-white rounded-sm px-2">
@@ -124,11 +125,13 @@ export const WithControls: Story = {
                         Decrement
                     </button>
                     <div className="flex space-x-2 justify-center">
-                        <button onClick={() => jumpTo(0)}>1</button>
-                        <button onClick={() => jumpTo(1)}>2</button>
-                        <button onClick={() => jumpTo(2)}>3</button>
-                        <button onClick={() => jumpTo(3)}>4</button>
-                        <button onClick={() => jumpTo(4)}>5</button>
+                        {Array(5)
+                            .fill(undefined)
+                            .map((_, i) => (
+                                <button className={clsx({ "text-red-700": currentIndex === i })} key={i} onClick={() => jumpTo(i)}>
+                                    {i + 1}
+                                </button>
+                            ))}
                     </div>
                 </>
             );
