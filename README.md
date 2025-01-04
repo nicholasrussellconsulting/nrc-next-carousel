@@ -105,6 +105,11 @@ This will be either a React component, or a function that returns a React compon
 
 The component will be inside an absolute positioned container with full width and height of the Frame.
 
+## Common Issues
+
+> ❌ **Error:** Error: Functions cannot be passed directly to Client Components unless you explicitly expose it by marking it with "use server". Or maybe you meant to call this function rather than return it.
+
+This occurs if you do not have a "use client" directive in the file where you are defining a React Component to pass to the carousel (`controlsComponent` for example)
 
 ## License
 
