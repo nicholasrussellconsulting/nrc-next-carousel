@@ -61,12 +61,12 @@ const NRCCarousel = ({
         if (playingAnimation || lessThanTwoFrames) {
             return;
         }
-        if (i <= 1) {
+        if (i < 1) {
             setIndex(1);
-        } else if (i >= infiniteFrames.length - 1) {
+        } else if (i >= infiniteFrames.length - 2) {
             setIndex(infiniteFrames.length - 2);
         } else {
-            setIndex(i);
+            setIndex(i + 1);
         }
     };
     const firstFrame = frames[0];

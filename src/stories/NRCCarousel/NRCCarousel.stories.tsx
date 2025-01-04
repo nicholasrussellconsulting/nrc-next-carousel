@@ -124,11 +124,11 @@ export const WithControls: Story = {
                         Decrement
                     </button>
                     <div className="flex space-x-2 justify-center">
-                        <button onClick={() => jumpTo(1)}>1</button>
-                        <button onClick={() => jumpTo(2)}>2</button>
-                        <button onClick={() => jumpTo(3)}>3</button>
-                        <button onClick={() => jumpTo(4)}>4</button>
-                        <button onClick={() => jumpTo(5)}>5</button>
+                        <button onClick={() => jumpTo(0)}>1</button>
+                        <button onClick={() => jumpTo(1)}>2</button>
+                        <button onClick={() => jumpTo(2)}>3</button>
+                        <button onClick={() => jumpTo(3)}>4</button>
+                        <button onClick={() => jumpTo(4)}>5</button>
                     </div>
                 </>
             );
@@ -266,7 +266,7 @@ export const ComponentBased: Story = {
                                 <h1 className="text-xl">Slide 1</h1>
                                 <button onClick={incrementCarousel}>Increment</button>
                                 <button onClick={decrementCarousel}>Decrement</button>
-                                <button onClick={() => jumpTo(2)}>Go to end</button>
+                                <button onClick={() => jumpTo(3)}>Go to end</button>
                             </div>
                         );
                     },
@@ -289,10 +289,24 @@ export const ComponentBased: Story = {
             },
             {
                 mobile: {
-                    component({ decrementCarousel, incrementCarousel, jumpTo }) {
+                    component({ decrementCarousel, incrementCarousel }) {
                         return (
                             <div className="bg-green-400 flex w-full h-full flex-col justify-center items-center">
                                 <h1 className="text-xl">Slide 3</h1>
+                                <button onClick={incrementCarousel}>Increment</button>
+                                <button onClick={decrementCarousel}>Decrement</button>
+                            </div>
+                        );
+                    },
+                },
+                key: "3",
+            },
+            {
+                mobile: {
+                    component({ decrementCarousel, incrementCarousel, jumpTo }) {
+                        return (
+                            <div className="bg-yellow-400 flex w-full h-full flex-col justify-center items-center">
+                                <h1 className="text-xl">Slide 4</h1>
                                 <button onClick={incrementCarousel}>Increment</button>
                                 <button onClick={decrementCarousel}>Decrement</button>
                                 <button onClick={() => jumpTo(0)}>Go to start</button>
