@@ -37,6 +37,8 @@ Here's what Lighthouse had to say about it:
 
 `npm i nrc-next-carousel`
 
+### For Tailwind 3
+
 In your tailwind.config.ts, add 
 `"./node_modules/nrc-next-carousel/dist/**/*.{js,ts,jsx,tsx}"`
 
@@ -65,6 +67,22 @@ export default {
   },
   plugins: [],
 } satisfies Config;
+```
+
+### For Tailwind 4
+
+Add this line to the top of your .css file that imports Tailwind.
+
+If you're using the `src` directory (`/src/app/globals.css`):
+
+```css
+@source "../../node_modules/nrc-next-carousel/dist";
+```
+
+If you're __not__ using the `src` directory (`/app/globals.css`):
+
+```css
+@source "../node_modules/nrc-next-carousel/dist";
 ```
 
 ## Usage
