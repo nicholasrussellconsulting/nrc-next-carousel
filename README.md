@@ -31,7 +31,7 @@ If this repo helped you, consider giving it a ⭐ to help others discover it!
 
 Here's what Lighthouse had to say about it:
 
-![Very high Lighthouse scores](https://images.ctfassets.net/wkoudqq0i14u/6taW7JpIR7ezsCtdAUZQNR/ca36c2e4406b3c670f75c24f3e36d24c/Screenshot_2025-01-03_203303.png)
+![Very high Lighthouse scores](https://images.ctfassets.net/j4gvxrppq5bi/6taW7JpIR7ezsCtdAUZQNR/3de08a0dbb20227d09125ab7aa7a8afc/Screenshot_2025-01-03_203303.png)
 
 ## Installation
 
