@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { FocalPoint, FrameRenderedComponentProps, NRCFrameComponent, NRCImage } from "./types";
 import clsx from "clsx";
 
-const DEFAULT_BLUR_WIDTH = 200;
-const DEFAULT_BLUR_QUALITY = 30;
+const DEFAULT_BLUR_WIDTH = 400;
+const DEFAULT_BLUR_QUALITY = 40;
 
 export const NRCFrame = ({
     image,
@@ -17,6 +17,7 @@ export const NRCFrame = ({
     decrementCarousel,
     incrementCarousel,
     jumpTo,
+    isSingleSlide,
 }: NRCFrameComponent & {
     priority?: boolean;
     onLoad?: () => void;
@@ -26,9 +27,11 @@ export const NRCFrame = ({
     loadingComponent?: React.ReactNode;
     blurQuality?: number;
     noBlur?: boolean;
+    isSingleSlide?: boolean;
 }) => {
     const [blurUri, setBlurUri] = useState<undefined | string>(undefined);
     const [loaded, setLoaded] = useState(false);
+    const [isGrabbing, setIsGrabbing] = useState(false);
     useEffect(() => {
         if (!image?.src || image.blurDataURL || noBlur) {
             return;
@@ -62,7 +65,14 @@ export const NRCFrame = ({
                         width={image.width}
                         height={image.height}
                         style={imageStyles}
-                        className={clsx("absolute inset-0 object-cover transition duration-200", { "blur-sm": !loaded })}
+                        className={clsx("absolute inset-0 object-cover transition duration-200 select-none", {
+                            "blur-sm": !loaded,
+                            "cursor-grab": !isGrabbing && !isSingleSlide,
+                            "cursor-grabbing select-none": isGrabbing && !isSingleSlide,
+                        })}
+                        onMouseDown={() => setIsGrabbing(true)}
+                        onMouseUp={() => setIsGrabbing(false)}
+                        onMouseLeave={() => setIsGrabbing(false)}
                         priority={priority}
                         blurDataURL={noBlur ? undefined : image.blurDataURL || blurUri}
                         placeholder={noBlur || (!image.blurDataURL && !blurUri) ? undefined : "blur"}
@@ -75,7 +85,15 @@ export const NRCFrame = ({
             )}
 
             {!!component && (
-                <div className="absolute inset-0 w-full h-full">
+                <div
+                    onMouseDown={() => setIsGrabbing(true)}
+                    onMouseUp={() => setIsGrabbing(false)}
+                    onMouseLeave={() => setIsGrabbing(false)}
+                    className={clsx("absolute inset-0 w-full h-full select-none", {
+                        "cursor-grab": !isGrabbing && !isSingleSlide,
+                        "cursor-grabbing select-none": isGrabbing && !isSingleSlide,
+                    })}
+                >
                     {isFunction(component) ? component({ decrementCarousel, incrementCarousel, jumpTo }) : component}
                 </div>
             )}

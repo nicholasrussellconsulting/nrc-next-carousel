@@ -210,6 +210,7 @@ const NRCCarousel = ({
                                 blurQuality={blurQuality}
                                 jumpTo={jumpTo}
                                 noBlur={noBlur}
+                                isSingleSlide={frames.length < 2}
                             />
                         </div>
                     ))}
