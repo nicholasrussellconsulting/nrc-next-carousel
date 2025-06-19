@@ -36,6 +36,7 @@ const NRCCarousel = ({
     ariaLabel,
     controlsComponent,
     willAutoPlayOutsideViewport,
+    pauseOnHover = true
 }: NRCCarouselProps) => {
     const breakpointClass: DesktopMobile<string> = breakpoint ? breakpointClasses[breakpoint] : { desktop: "hidden", mobile: "flex" };
     const [index, setIndex] = useState(1);
@@ -80,7 +81,7 @@ const NRCCarousel = ({
     const containerRef = useRef<HTMLDivElement>(null);
     const isHovering = useHover(containerRef as RefObject<HTMLDivElement>);
     const hasFocus = useHasFocus(containerRef as RefObject<HTMLDivElement>);
-    const userIsEngaging = isHovering || hasFocus;
+    const userIsEngaging = (isHovering && pauseOnHover) || hasFocus;
 
     const carouselIsInViewport = useIsVisible(containerRef as RefObject<HTMLDivElement>) || willAutoPlayOutsideViewport;
 
@@ -211,6 +212,7 @@ const NRCCarousel = ({
                                 jumpTo={jumpTo}
                                 noBlur={noBlur}
                                 isSingleSlide={frames.length < 2}
+                                pauseOnHover={pauseOnHover}
                             />
                         </div>
                     ))}

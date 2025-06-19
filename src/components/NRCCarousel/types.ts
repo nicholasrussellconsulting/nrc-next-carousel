@@ -57,4 +57,6 @@ export type NRCCarouselProps = {
     ariaLabel?: string;
     controlsComponent?: (props: FrameRenderedComponentPropsWithIndex) => React.ReactNode;
     willAutoPlayOutsideViewport?: boolean;
+    /** If the carousel will pause on the current slide when hovered on desktop **/
+    pauseOnHover?: boolean;
 };
