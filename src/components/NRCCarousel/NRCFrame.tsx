@@ -18,7 +18,6 @@ export const NRCFrame = ({
     incrementCarousel,
     jumpTo,
     isSingleSlide,
-    pauseOnHover
 }: NRCFrameComponent & {
     priority?: boolean;
     onLoad?: () => void;
@@ -29,7 +28,6 @@ export const NRCFrame = ({
     blurQuality?: number;
     noBlur?: boolean;
     isSingleSlide?: boolean;
-    pauseOnHover?: boolean;
 }) => {
     const [blurUri, setBlurUri] = useState<undefined | string>(undefined);
     const [loaded, setLoaded] = useState(false);

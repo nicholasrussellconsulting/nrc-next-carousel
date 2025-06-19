@@ -108,6 +108,8 @@ The Carousel is made up of Frames which can be images, React components, or both
 
 The `loadingComponent` is what will appear before the blurUrl is loaded. This defaults to a pulsating gray colored div.
 
+If you want to turn off automatic pausing when the user has their mouse hovering on the carousel, you can set `willPauseOnHover` to `false`.
+
 You can adjust the `slideDuration` to change the auto-play speed. And turn off auto-play with `noAutoPlay`. If the carousel should continue to auto-play even if the carousel is not in the viewport, you can use `willAutoPlayOutsideViewport`.
 
 You can turn off the default blur with `noBlur`. You can adjust the default quality of the initial blur image by using the `blurQuality` prop (use a number between 1-100). The larger the number, the better looking the image, but the worse the load time.
