@@ -6,14 +6,6 @@
 
 This is a swipeable, infinite scrolling, user-friendly Next.js Carousel built **only for** Next.js/Tailwind users. If you're project uses both of these technologies, this package will make your life a whole lot easier. This package was built with marketing/ecomm in mind.
 
-## Support Me
-
-Checkout my highest sponsor tier if you're looking for face-to-face support and bug prioritization.
-
-[![GitHub Sponsors](https://img.shields.io/badge/sponsor-GitHub-blue?logo=github)](https://github.com/sponsors/nlowen233)
-
-If this repo helped you, consider giving it a ⭐ to help others discover it!
-
 ## Preview
 
 [Check out the Storybook Demo](https://carousel.nicholasrussellconsulting.com)
@@ -88,11 +80,37 @@ If you're **not** using the `src` directory (`/app/globals.css`):
 ## Usage
 
 ```tsx
-import { Carousel } from  "nrc-next-carousel";
-export  default  function  Home() {
+"use client";
+
+import { Carousel } from "nrc-next-carousel";
+
+export default function Home() {
     return (
         <>
-            <Carousel frames={[...]}/>;
+            <Carousel
+                breakpoint="sm"
+                frames={[
+                    {
+                        desktop: {
+                            image: {
+                                src: "https://images.ctfassets.net/j4gvxrppq5bi/6biBiOZi4kHOPqQNKUfiw0/f4df53b90a971f7b8a4be6d4d54e36ac/swamp-frogs-desktop.png",
+                                width: 1792,
+                                height: 600,
+                                alt: "frog band",
+                            },
+                        },
+                        mobile: {
+                            image: {
+                                src: "https://images.ctfassets.net/j4gvxrppq5bi/4w3rKIcmF02bi8vwnrsNwO/933e050dff9958c9ec9803066ca1737e/swamp-frogs-mobile.png",
+                                width: 640,
+                                height: 800,
+                                alt: "frog band",
+                            },
+                        },
+                    },
+                ]}
+            />
+            ;
         </>
     );
 }
@@ -139,6 +157,14 @@ The component will be inside an absolute positioned container with full width an
 > ❌ **Error:** Error: Functions cannot be passed directly to Client Components unless you explicitly expose it by marking it with "use server". Or maybe you meant to call this function rather than return it.
 
 This occurs if you do not have a "use client" directive in the file where you are defining a React Component to pass to the carousel (`controlsComponent` for example)
+
+## Support Me
+
+Checkout my highest sponsor tier if you're looking for face-to-face support and bug prioritization.
+
+[![GitHub Sponsors](https://img.shields.io/badge/sponsor-GitHub-blue?logo=github)](https://github.com/sponsors/nlowen233)
+
+If this repo helped you, consider giving it a ⭐ to help others discover it!
 
 ## License
 
