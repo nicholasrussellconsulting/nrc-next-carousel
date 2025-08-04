@@ -93,7 +93,7 @@ export default function Home() {
                     {
                         desktop: {
                             image: {
-                                src: "https://images.ctfassets.net/j4gvxrppq5bi/6biBiOZi4kHOPqQNKUfiw0/f4df53b90a971f7b8a4be6d4d54e36ac/swamp-frogs-desktop.png",
+                                src: "...",
                                 width: 1792,
                                 height: 600,
                                 alt: "frog band",
@@ -101,7 +101,7 @@ export default function Home() {
                         },
                         mobile: {
                             image: {
-                                src: "https://images.ctfassets.net/j4gvxrppq5bi/4w3rKIcmF02bi8vwnrsNwO/933e050dff9958c9ec9803066ca1737e/swamp-frogs-mobile.png",
+                                src: "...",
                                 width: 640,
                                 height: 800,
                                 alt: "frog band",
@@ -110,7 +110,6 @@ export default function Home() {
                     },
                 ]}
             />
-            ;
         </>
     );
 }
