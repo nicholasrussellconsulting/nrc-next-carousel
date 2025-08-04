@@ -96,7 +96,7 @@ export default function Home() {
                                 src: "...",
                                 width: 1792,
                                 height: 600,
-                                alt: "frog band",
+                                alt: "...",
                             },
                         },
                         mobile: {
@@ -104,7 +104,7 @@ export default function Home() {
                                 src: "...",
                                 width: 640,
                                 height: 800,
-                                alt: "frog band",
+                                alt: "...",
                             },
                         },
                     },
