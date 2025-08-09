@@ -37,9 +37,16 @@ const NRCCarousel = ({
     controlsComponent,
     willAutoPlayOutsideViewport,
     willPauseOnHover = true,
+    initialIndex = 0,
 }: NRCCarouselProps) => {
     const breakpointClass: DesktopMobile<string> = breakpoint ? breakpointClasses[breakpoint] : { desktop: "hidden", mobile: "flex" };
-    const [index, setIndex] = useState(1);
+    
+    // Validate and clamp initialIndex to valid range
+    const validatedInitialIndex = Math.max(0, Math.min(initialIndex, frames.length - 1));
+    // Convert 0-based initialIndex to 1-based internal index (accounting for infinite loop structure)
+    const internalInitialIndex = validatedInitialIndex + 1;
+    
+    const [index, setIndex] = useState(internalInitialIndex);
     const [firstImageLoaded, setFirstImageLoaded] = useState(false);
     const [playingAnimation, setPlayingAnimation] = useState(false);
     const [disableAnimation, setDisableAnimation] = useState(false);
@@ -168,10 +175,10 @@ const NRCCarousel = ({
                         style={{ aspectRatio: !heights?.mobile ? mobileAspectRatio : undefined, height: heights?.mobile }}
                     >
                         <NRCFrame
-                            priority={i === 0}
+                            priority={i === internalInitialIndex}
                             component={frame.mobile?.component}
                             image={frame.mobile?.image}
-                            onLoad={i === 0 ? toggleFirstImageLoaded : undefined}
+                            onLoad={i === internalInitialIndex ? toggleFirstImageLoaded : undefined}
                             incrementCarousel={incIndex}
                             decrementCarousel={decIndex}
                             jumpTo={jumpTo}
@@ -201,10 +208,10 @@ const NRCCarousel = ({
                             inert={i !== index}
                         >
                             <NRCFrame
-                                priority={i === 0}
+                                priority={i === internalInitialIndex}
                                 component={frame.desktop?.component}
                                 image={frame.desktop?.image}
-                                onLoad={i === 0 ? toggleFirstImageLoaded : undefined}
+                                onLoad={i === internalInitialIndex ? toggleFirstImageLoaded : undefined}
                                 incrementCarousel={incIndex}
                                 decrementCarousel={decIndex}
                                 loadingComponent={loadingComponent}

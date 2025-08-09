@@ -49,6 +49,8 @@ export type NRCCarouselProps = {
     breakpoint?: Breakpoint;
     slideDuration?: number;
     noAutoPlay?: boolean;
+    /* The index of the frame to start the carousel on (0-based). Defaults to 0. */
+    initialIndex?: number;
     /* This component will be displayed before the images load in an absolutely positioned container with gull width and height. */
     loadingComponent?: React.ReactNode;
     /* This is the blur quality of the initial blurred image 1-100, the trade off is performance verse beauty. */
